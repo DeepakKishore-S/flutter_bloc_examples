@@ -9,7 +9,7 @@ class LoginHandle {
   const LoginHandle.foobar() : token = "foobar";
 
   @override
-  bool operator ==(covariant LoginHandle other) => this.token == other.token;
+  bool operator ==(covariant LoginHandle other) => token == other.token;
 
   @override
   int get hashCode => token.hashCode;
