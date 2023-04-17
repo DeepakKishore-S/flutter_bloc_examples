@@ -13,6 +13,6 @@ class NotesApi extends NotesApiProtocol {
   @override
   Future<Iterable<Note>?> getNotes({required LoginHandle loginHandle}) {
     return Future.delayed(const Duration(seconds: 2),
-        () => loginHandle == const LoginHandle.foobar() ? mockNote : null);
+        () => loginHandle == const LoginHandle.foobar() ? mockNote : null,);
   }
 }
