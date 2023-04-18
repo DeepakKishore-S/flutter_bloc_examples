@@ -34,12 +34,36 @@ class AppBloc extends Bloc<AppAction, AppState> {
       );
     });
 
-    on<LoadNotesAction>((event, emit) {
-      emit(AppState(
+    on<LoadNotesAction>((event, emit) async {
+      final loginHandle = state.loginHandle;
+      emit(
+        AppState(
           isLoading: true,
           loginError: null,
-          loginHandle: state.loginHandle,
-          fetchedNotes: null,),);
+          loginHandle: loginHandle,
+          fetchedNotes: null,
+        ),
+      );
+      if (loginHandle != const LoginHandle.foobar()) {
+        emit(
+          AppState(
+            isLoading: false,
+            loginError: LoginError.invalidHandle,
+            loginHandle: loginHandle,
+            fetchedNotes: null,
+          ),
+        );
+        return;
+      }
+      final notes = await notesApi.getNotes(loginHandle: loginHandle!);
+
+      emit(
+        AppState(
+            isLoading: false,
+            loginError: null,
+            loginHandle: loginHandle,
+            fetchedNotes: notes,),
+      );
     });
   }
 }
