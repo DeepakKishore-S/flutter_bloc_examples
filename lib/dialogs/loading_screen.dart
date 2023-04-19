@@ -9,9 +9,25 @@ class LoadingScreen {
   static final LoadingScreen _shared = LoadingScreen._sharedInstance();
   factory LoadingScreen() => _shared;
 
-  LoadingScreenController? controller;
+  LoadingScreenController? _controller;
 
-  LoadingScreenController overlay({
+  void show({
+    required BuildContext context,
+    required String text,
+  }) {
+    if (_controller?.update(text) ?? false) {
+      return;
+    } else {
+      _controller = _overlay(context: context, text: text);
+    }
+  }
+
+  void hide() {
+    _controller?.close();
+    _controller = null;
+  }
+
+  LoadingScreenController _overlay({
     required BuildContext context,
     required String text,
   }) {
@@ -38,17 +54,17 @@ class LoadingScreen {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      CircularProgressIndicator(),
-                      SizedBox(
+                      const CircularProgressIndicator(),
+                      const SizedBox(
                         height: 20,
                       ),
                       StreamBuilder<String>(
@@ -75,13 +91,16 @@ class LoadingScreen {
     );
     _state.insert(_overlayEntry);
 
-    return LoadingScreenController(close: () {
-      _text.close();
-      _overlayEntry.remove();
-      return true;
-    }, update: (text) {
-      _text.add(text);
-      return true;
-    },);
+    return LoadingScreenController(
+      close: () {
+        _text.close();
+        _overlayEntry.remove();
+        return true;
+      },
+      update: (text) {
+        _text.add(text);
+        return true;
+      },
+    );
   }
 }
