@@ -11,9 +11,9 @@ abstract class LoginApiProtocol {
 @immutable
 class LoginApi implements LoginApiProtocol {
   //singleton class pattern
-  const LoginApi._();
-  static const LoginApi _loginApi = LoginApi._();
-  factory LoginApi() => _loginApi;
+  // const LoginApi._();
+  // static const LoginApi _loginApi = LoginApi._();
+  // factory LoginApi() => _loginApi;
 
   @override
   Future<LoginHandle?> login(

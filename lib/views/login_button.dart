@@ -31,6 +31,8 @@ class LoginButton extends StatelessWidget {
                 title: emailOrPasswordEmptyDialogTitle,
                 content: emailOrPasswordEmptyDescription,
                 optionDialogBuilder: () => {"ok": true});
+          } else {
+            onLoginTapped(email, password);
           }
         },
         child: const Text(login));
