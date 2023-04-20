@@ -4,6 +4,7 @@ import 'package:flutter_bloc_examples/apis/login_api.dart';
 import 'package:flutter_bloc_examples/apis/notes_api.dart';
 import 'package:flutter_bloc_examples/bloc/app_bloc.dart';
 import 'package:flutter_bloc_examples/bloc/app_state.dart';
+import 'package:flutter_bloc_examples/dialog/generic_dialog.dart';
 import 'package:flutter_bloc_examples/dialog/loading_screen.dart';
 import 'package:flutter_bloc_examples/strings.dart';
 
@@ -33,8 +34,25 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: BlocConsumer<AppBloc, AppState>(
             listener: (context, state) {
-              if(state.isLoading){
-                LoadingScreen.
+              // loading Screen
+              if (state.isLoading) {
+                LoadingScreen().show(
+                  context: context,
+                  text: pleaseWait,
+                );
+              } else {
+                LoadingScreen().hide();
+              }
+
+              //login error
+              final loginError = state.loginError;
+              if (loginError != null) {
+                showGenericDialog<bool>(
+                  context: context,
+                  title: loginErrorDialogTitle,
+                  content: loginErrorDialogContent,
+                  optionDialogBuilder: ()=>{"ok": true},
+                );
               }
             },
             builder: (context, state) {
