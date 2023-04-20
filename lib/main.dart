@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
           child: BlocConsumer<AppBloc, AppState>(
             listener: (context, state) {
               if(state.isLoading){
-                LoadingScreen().
+                LoadingScreen.
               }
             },
             builder: (context, state) {

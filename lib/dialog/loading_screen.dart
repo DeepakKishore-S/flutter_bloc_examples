@@ -9,7 +9,20 @@ class LoadingScreen {
   static final LoadingScreen _shared = LoadingScreen._sharedInstance();
   factory LoadingScreen() => _shared;
 
-  LoadingScreenController? controller;
+  LoadingScreenController? _controller;
+
+  void show({required BuildContext context, required String text}) {
+    if (_controller?.update(text) ?? false) {
+      return;
+    } else {
+      _controller = overlay(context: context, text: text);
+    }
+  }
+
+  void hide() {
+    _controller?.close();
+    _controller = null;
+  }
 
   LoadingScreenController overlay({
     required BuildContext context,
