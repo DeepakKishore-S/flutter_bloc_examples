@@ -70,7 +70,7 @@ class LoadingScreen {
                       StreamBuilder<String>(
                         stream: _text.stream,
                         builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
+                            AsyncSnapshot<String> snapshot,) {
                           if (snapshot.hasData) {
                             return Text(
                               snapshot.data!,

@@ -21,13 +21,15 @@ class AppBloc extends Bloc<AppAction, AppState> {
         ),
       );
 
-      final loginHandle =
-          await loginApi.login(email: event.email, password: event.password);
+      final loginHandle = await loginApi.login(
+        email: event.email,
+        password: event.password,
+      );
 
       emit(
         AppState(
           isLoading: false,
-          loginError: loginHandle != null ? LoginError.invalidHandle : null,
+          loginError: loginHandle == null ? LoginError.invalidHandle : null,
           loginHandle: loginHandle,
           fetchedNotes: null,
         ),
@@ -59,10 +61,11 @@ class AppBloc extends Bloc<AppAction, AppState> {
 
       emit(
         AppState(
-            isLoading: false,
-            loginError: null,
-            loginHandle: loginHandle,
-            fetchedNotes: notes,),
+          isLoading: false,
+          loginError: null,
+          loginHandle: loginHandle,
+          fetchedNotes: notes,
+        ),
       );
     });
   }

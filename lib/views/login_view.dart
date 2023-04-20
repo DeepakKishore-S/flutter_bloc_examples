@@ -19,6 +19,8 @@ class LoginView extends HookWidget {
     final passwordController = useTextEditingController();
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         EmailTextField(emailController: emailController),
         PasswordTextField(passwordController: passwordController),

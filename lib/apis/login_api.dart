@@ -17,9 +17,9 @@ class LoginApi implements LoginApiProtocol {
 
   @override
   Future<LoginHandle?> login(
-      {required String email, required String password}) {
+      {required String email, required String password,}) {
     return Future.delayed(const Duration(seconds: 2),
-            () => email == "sdk@gmail.com" && password == "123")
+            () => email == "sdk@gmail.com" && password == "123",)
         .then((isLoggedIn) => isLoggedIn ? const LoginHandle.foobar() : null);
   }
 }

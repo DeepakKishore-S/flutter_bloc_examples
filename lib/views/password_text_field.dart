@@ -13,9 +13,9 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: passwordController,
-      autocorrect: false,
+      // autocorrect: false,
       obscureText: true,
-      obscuringCharacter: "😊",
+      obscuringCharacter: "@",
       decoration: const InputDecoration(hintText: enterYourPasswordHere),
     );
   }
