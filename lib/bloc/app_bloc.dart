@@ -20,11 +20,13 @@ class AppBloc extends Bloc<AppAction, AppState> {
           fetchedNotes: null,
         ),
       );
+      print("object");
 
       final loginHandle = await loginApi.login(
         email: event.email,
         password: event.password,
       );
+      print(loginHandle);
 
       emit(
         AppState(
@@ -34,6 +36,7 @@ class AppBloc extends Bloc<AppAction, AppState> {
           fetchedNotes: null,
         ),
       );
+      print("emitted");
     });
 
     on<LoadNotesAction>((event, emit) async {
