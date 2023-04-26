@@ -111,4 +111,36 @@ void main() {
         ),
     ],
   );
+
+  blocTest<AppBloc, AppState>(
+    "App Bloc Testing passing the invalid login credentials",
+    build: () => AppBloc(
+      loginApi: const DummyLoginApi(
+        acceptedEmail: "sdk@gmail.com",
+        acceptedPassword: "123",
+        handleToReturn: LoginHandle(token: "ABC"),
+      ),
+      notesApi: const DummyNotesApi.empty(),
+    ),
+    act: (appBloc) => appBloc.add(
+      const LoginAction(
+        email: "sdk@gmail.com",
+        password: "12",
+      ),
+    ),
+    expect:()=> const[
+       AppState(
+          isLoading: true,
+          loginError: null,
+          loginHandle: null,
+          fetchedNotes: null,
+        ),
+        AppState(
+          isLoading: false,
+          loginError: LoginError.invalidHandle,
+          loginHandle: null,
+          fetchedNotes: null,
+        ),
+    ],
+  );
 }
