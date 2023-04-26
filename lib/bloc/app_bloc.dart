@@ -10,11 +10,14 @@ import 'package:flutter_bloc_examples/model.dart';
 class AppBloc extends Bloc<AppAction, AppState> {
   final LoginApiProtocol loginApi;
   final NotesApiProtocol notesApi;
+  final LoginHandle acceptedLoginHandle;
 
   AppBloc({
     required this.loginApi,
     required this.notesApi,
+    required this.acceptedLoginHandle,
   }) : super(const AppState.empty()) {
+
     on<LoginAction>(
       (event, emit) async {
         // start loading
@@ -54,7 +57,7 @@ class AppBloc extends Bloc<AppAction, AppState> {
         );
         // get the login handle
         final loginHandle = state.loginHandle;
-        if (loginHandle != const LoginHandle.foobar()) {
+        if (loginHandle != acceptedLoginHandle) {
           // invalid login handle, cannot fetch notes
           emit(
             AppState(

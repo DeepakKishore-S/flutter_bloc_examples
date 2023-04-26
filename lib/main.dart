@@ -32,7 +32,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppBloc(loginApi: LoginApi(), notesApi: NotesApi()),
+      create: (context) => AppBloc(
+        loginApi: LoginApi(),
+        notesApi: NotesApi(),
+        acceptedLoginHandle: const LoginHandle.foobar(),
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: const Text(homepage),
@@ -71,12 +75,16 @@ class HomePage extends StatelessWidget {
           builder: (context, appState) {
             final notes = appState.fetchedNotes;
             if (notes == null) {
-              return LoginView(onLoginTapped: (email, password) {
-                context.read<AppBloc>().add(LoginAction(
-                      email: email,
-                      password: password,
-                    ),);
-              },);
+              return LoginView(
+                onLoginTapped: (email, password) {
+                  context.read<AppBloc>().add(
+                        LoginAction(
+                          email: email,
+                          password: password,
+                        ),
+                      );
+                },
+              );
             } else {
               return notes.toListView();
             }
