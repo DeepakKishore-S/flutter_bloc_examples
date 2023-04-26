@@ -30,26 +30,33 @@ class AppState {
         "fetchedNotes": fetchedNotes,
       }.toString();
 
-  @override
+   @override
   bool operator ==(covariant AppState other) {
-    final otherPropertiesAreEqual = other.isLoading == isLoading &&
-        other.loginError == loginError &&
-        other.loginHandle == loginHandle;
+    final otherPropertiesAreEqual = isLoading == other.isLoading &&
+        loginError == other.loginError &&
+        loginHandle == other.loginHandle;
 
     if (fetchedNotes == null && other.fetchedNotes == null) {
-      return true;
+      return otherPropertiesAreEqual;
     } else {
       return otherPropertiesAreEqual &&
-          (fetchedNotes?.isEqualto(other.fetchedNotes) ?? false);
+          (fetchedNotes?.isEqualTo(other.fetchedNotes) ?? false);
     }
   }
   
-  @override
-  int get hashCode => Object.hash(isLoading, loginError, loginHandle, fetchedNotes);
+   @override
+  int get hashCode => Object.hash(
+        isLoading,
+        loginError,
+        loginHandle,
+        fetchedNotes,
+      );
   
 }
 
-extension UnOrderedEquality on Object {
-  bool isEqualto(other) =>
-      const DeepCollectionEquality.unordered().equals(this, other);
+extension UnorderedEquality on Object {
+  bool isEqualTo(other) => const DeepCollectionEquality.unordered().equals(
+        this,
+        other,
+      );
 }
